@@ -12,3 +12,6 @@ insert into users (name, email, phone)
 
 
 select * from users;
+
+--  delete the table
+drop table users;

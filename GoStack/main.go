@@ -14,10 +14,10 @@ import (
 )
 
 type User struct {
-	ID  int `gorm:"primaryKey"`
-	Name  string
-	Email string
-	Phone string
+	ID  uint  `gorm:"primaryKey"`
+	Name  string  `gorm:"size:100; not null"`
+	Email string  `gorm:"size:150; unique; not null"`
+	Phone string  `gorm:"size:20"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -51,14 +51,35 @@ func main () {
 	gormDB, err := gorm.Open(postgres.New(postgres.Config{
 	Conn: sqlDB,
 	}), &gorm.Config{})
-	
+
 	// _ = gormDB 
 
 	if err != nil {
 		log.Fatal("Failed to initialize gorm:", err)
 	}
-
 	fmt.Println("Successfully connected to the database using GORM with pgx driver!")
+
+	err = gormDB.AutoMigrate(&User{})
+
+	if err != nil {
+		log.Fatal("Failed to auto-migrate User model:", err)
+	}
+
+	fmt.Println("user table auto-migrated successfully!")
+
+	// create a record using create method
+	user := User{
+		Name: "Sadia",
+		Email: "sadia@example.com",
+		Phone: "+8801727392836",
+	}
+
+	result := gormDB.Create(&user)
+
+	if result.Error != nil {
+		log.Fatal("Failed to create user:", result.Error)
+	}
+	fmt.Printf("User created successfully with ID: %v\n", user.ID)
 
 	// fetch users using raw sql query
 	var users []User
@@ -69,7 +90,7 @@ func main () {
 	}
 
 	// fetch user by id
-	var user User
-	gormDB.Raw("select * from users where id = ?", 1).Scan(&user)
-	fmt.Printf("User with ID 1: Name: %v, Email: %v, Phone: %v\n", user.Name, user.Email, user.Phone)
+	var user1 User
+	gormDB.Raw("select * from users where id = ?", 1).Scan(&user1)
+	fmt.Printf("User with ID 1: Name: %v, Email: %v, Phone: %v\n", user1.Name, user1.Email, user1.Phone)
 }
