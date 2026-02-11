@@ -1,0 +1,19 @@
+# Echo web framework
+github.com/labstack/echo/v4 
+
+# Echo middleware (already included in v4)
+github.com/labstack/echo/v4/middleware
+
+# PostgreSQL driver
+github.com/jackc/pgx/v5/pgxpool
+github.com/jackc/pgx/v5/stdlib
+
+# GORM ORM
+gorm.io/gorm
+gorm.io/driver/postgres
+
+# Environment variables support
+github.com/joho/godotenv
+
+# Logging 
+github.com/rs/zerolog

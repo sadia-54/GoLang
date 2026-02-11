@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	// "fmt"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -24,8 +25,49 @@ func main() {
 
 	e.Use(middleware.RequestLogger())
 
+	// custom logger configuration
+	// e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+	// 	LogMethod:  true,
+	// 	LogURI:     true,
+	// 	LogStatus:  true,
+	// 	LogLatency: true,
+	// 	LogValuesFunc: func(c *echo.Context, v middleware.RequestLoggerValues) error {
+	// 		fmt.Printf("METHOD=%s URI=%s STATUS=%d LATENCY=%v\n",
+	// 			v.Method,
+	// 			v.URI,
+	// 			v.Status,
+	// 			v.Latency,
+	// 		)
+	// 		return nil
+	// 	},
+	// }))
+
+
+	// cors configuration
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{
+			echo.GET,
+			echo.POST,
+		},
+
+		AllowHeaders: []string{
+			echo.HeaderContentType,
+		},
+
+
+	}))
+
+	// redirecting to https
+	// e.Pre(middleware.HTTPSRedirect())
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
+	})
+
+	// cors middleware
+	e.GET("/ping", func(c echo.Context) error {
+		return c.String(http.StatusOK, "pong")
 	})
 
 	// hello from query string
