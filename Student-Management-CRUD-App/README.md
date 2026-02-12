@@ -1,6 +1,6 @@
 # Student Management CRUD App
 
-A simple **RESTful API application** for managing students using **Go**, **Echo framework**, **GORM**, **PostgreSQL**, and **Zerolog** for structured logging.
+A simple **RESTful API application** for managing students using **Go**, **Echo framework**, **GORM**, **PostgreSQL**, **Validator** and **Zerolog** for structured logging.
 
 ---
 
@@ -66,8 +66,8 @@ Student-Management-CRUD-App/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/sadia-54/student-management.git
-cd student-management
+git clone https://github.com/sadia-54/GoLang.git
+cd Student-Management-CRUD-App
 ```
 
 ### 2. Install dependencies
@@ -165,12 +165,6 @@ The server will start on `http://localhost:8080`.
 - Input validation using [Go Playground Validator](https://github.com/go-playground/validator)
 - Applied in `CreateStudent` and `UpdateStudent` handlers
 - Returns proper error messages for invalid payloads
-
----
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request.
 
 ---
 
