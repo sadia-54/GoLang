@@ -4,6 +4,9 @@ github.com/labstack/echo/v4
 # Echo middleware (already included in v4)
 github.com/labstack/echo/v4/middleware
 
+# validator library 
+github.com/go-playground/validator/v10
+
 # PostgreSQL driver
 github.com/jackc/pgx/v5/pgxpool
 github.com/jackc/pgx/v5/stdlib

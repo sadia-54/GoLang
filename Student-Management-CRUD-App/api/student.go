@@ -7,6 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/sadia-54/student-management/models"
 	"github.com/sadia-54/student-management/services"
+	"github.com/sadia-54/student-management/logger"
 )
 
 type StudentHandler struct {
@@ -23,12 +24,31 @@ func (h *StudentHandler) CreateStudent(c echo.Context) error {
 	var student models.Student
 
 	if err := c.Bind(&student); err != nil {
+		logger.Logger.Error().
+			Err(err).
+			Msg("Invalid request payload")
 		return c.JSON(http.StatusBadRequest, echo.Map{"error": "Invalid request payload"})
 	}
 
+	// validate struct
+	if err := c.Validate(&student); err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"error": err.Error(),
+		})
+	}
+
 	if err := h.service.CreateStudent(&student); err != nil {
+		logger.Logger.Error().
+			Err(err).
+			Str("email", student.Email).
+			Msg("Failed to create student")
 		return c.JSON(http.StatusInternalServerError, echo.Map{"error": "Failed to create student"})
 	}
+
+		logger.Logger.Info().
+		Str("email", student.Email).
+		Int("age", student.Age).
+		Msg("Student created successfully")
 
 	return c.JSON(http.StatusCreated, student)
 }
@@ -68,6 +88,13 @@ func (h *StudentHandler) UpdateStudent(c echo.Context) error {
 	var student models.Student
 	if err := c.Bind(&student); err != nil {
 		return c.JSON(http.StatusBadRequest, echo.Map{"error": "Invalid request payload"})
+	}
+
+	// validate struct
+	if err := c.Validate(&student); err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"error": err.Error(),
+		})
 	}
 
 	student.ID = uint(id) 
