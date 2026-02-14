@@ -10,7 +10,10 @@ async function connect() {
         const result = await channel.assertQueue("jobs");
 
         channel.consume("jobs", message => {
-            console.log(message.content.toString());
+            const input = JSON.parse(message.content.toString());
+            console.log(`Received: ${input.name}`);
+            if(input.name == "sadia")
+                channel.ack(message);
         })
 
         console.log("Waiting for messages...");
