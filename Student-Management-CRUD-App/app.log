@@ -6,3 +6,4 @@
 {"level":"info","method":"GET","path":"/students","status":200,"latency":0.6024,"time":"2026-02-12T22:53:44+06:00","message":"Request completed"}
 {"level":"info","method":"GET","path":"/students/3","status":200,"latency":1.9113,"time":"2026-02-12T22:53:51+06:00","message":"Request completed"}
 {"level":"info","method":"DELETE","path":"/students/3","status":200,"latency":2.408,"time":"2026-02-12T22:54:00+06:00","message":"Request completed"}
+{"level":"info","method":"GET","path":"/","status":200,"latency":2.9174,"time":"2026-02-12T23:18:00+06:00","message":"Request completed"}
