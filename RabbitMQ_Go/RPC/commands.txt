@@ -1,0 +1,5 @@
+go run rpc_server.go
+# => [x] Awaiting RPC requests
+
+go run rpc_client.go 30
+# => [x] Requesting fib(30)
