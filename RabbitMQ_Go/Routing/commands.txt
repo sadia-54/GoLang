@@ -1,0 +1,7 @@
+
+# consumer
+go run subscribe.go error warning > logs1.log 2>&1
+go run subscribe.go error warning > log2.log 2>&1  
+
+# producer
+go run publish.go info "this is an info log"
